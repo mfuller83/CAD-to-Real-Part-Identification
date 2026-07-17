@@ -181,7 +181,7 @@ When a new camera image is received, the image encoder would generate an embeddi
 * [x] Finalise initial project and dataset structure.
 * [x] Develop CAD-to-point-cloud generation pipeline.
 * [ ] Develop automated multi-view CAD image generation pipeline.
-* [ ] Implement point-cloud dataset loader.
+* [x] Implement point-cloud dataset loader.
 * [ ] Implement image dataset loader.
 * [ ] Implement initial 3D point-cloud encoder.
 * [ ] Implement initial image encoder.
@@ -194,6 +194,30 @@ When a new camera image is received, the image encoder would generate an embeddi
 * [ ] Investigate optimal embedding dimensionality.
 * [ ] Introduce real-world component photographs.
 * [ ] Investigate methods for reducing the synthetic-to-real domain gap.
+
+## Loading Point Clouds
+
+`PointCloudDataset` discovers `.xyz` files, samples a fixed number of points,
+normalises each complete cloud into a unit sphere, and returns tensors in the
+`(3, points)` layout consumed by `PointNet2Encoder`:
+
+```python
+from torch.utils.data import DataLoader
+
+from dataset import DATA_XYZ, PointCloudDataset
+
+training_data = PointCloudDataset(DATA_XYZ, number_of_points=2048)
+training_loader = DataLoader(training_data, batch_size=16, shuffle=True)
+
+batch = next(iter(training_loader))
+xyz = batch["points"]       # (batch, 3, 2048)
+part_ids = batch["part_id"]
+```
+
+Set `random_sample=False` for repeatable validation or test batches. On another
+machine, set `CAD_PART_DATA_ROOT` to the folder containing `Data STEP`,
+`Data STL`, `Data XYZ`, and `Data Views`, or pass a point-cloud folder directly
+to `PointCloudDataset`.
 
 ## Generating STEP Views
 

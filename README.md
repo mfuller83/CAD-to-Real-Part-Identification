@@ -178,8 +178,8 @@ When a new camera image is received, the image encoder would generate an embeddi
 
 ## Current Development Goals
 
-* [ ] Finalise initial project and dataset structure.
-* [ ] Develop CAD-to-point-cloud generation pipeline.
+* [x] Finalise initial project and dataset structure.
+* [x] Develop CAD-to-point-cloud generation pipeline.
 * [ ] Develop automated multi-view CAD image generation pipeline.
 * [ ] Implement point-cloud dataset loader.
 * [ ] Implement image dataset loader.

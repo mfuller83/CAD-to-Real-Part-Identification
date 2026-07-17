@@ -38,7 +38,7 @@ CAD Geometry ──────►│ Point Cloud     │──────► C
                                                    │ Space
                                                    │
                     ┌─────────────────┐            │
-Component Image ──►│ Image Encoder   │──────► Image Embedding
+Component Image ──► │ Image Encoder   │──────► Image Embedding
                     └─────────────────┘
 ```
 
@@ -194,6 +194,27 @@ When a new camera image is received, the image encoder would generate an embeddi
 * [ ] Investigate optimal embedding dimensionality.
 * [ ] Introduce real-world component photographs.
 * [ ] Investigate methods for reducing the synthetic-to-real domain gap.
+
+## Generating STEP Views
+
+`step_view_generator.py` is intended to run inside FreeCAD because rendering
+requires its GUI. Add it as a FreeCAD macro and run it to select a STEP model
+and output folder interactively. By default it creates front, rear, left,
+right, top, bottom, and isometric PNG images plus a JSON manifest.
+
+It can also be called from another FreeCAD Python script:
+
+```python
+from step_view_generator import generate_views
+
+output_directory = generate_views(
+    "/path/to/part.step",
+    "/path/to/rendered_views",
+    views=("front", "right", "top", "isometric"),
+    image_size=(1024, 1024),
+    background="White",
+)
+```
 
 ## Long-Term Objectives
 

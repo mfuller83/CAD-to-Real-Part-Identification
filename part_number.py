@@ -23,9 +23,3 @@ if match:
     data = match.groupdict()
     print(data)
     print(match.group("project"))
-
-# fucntion to confirm part number matchs Expert standard 
-# will return true or false 
-
-# fuc
-
